@@ -23,5 +23,23 @@ function getRandomQuestions(questions, numQuestions) {
   return shuffled.slice(0, numQuestions)
 }
 
+function askQuestion(question) {
+  console.log(question.question)
+  for (let i = 0; i < question.options.length; i++) {
+    const option = question.options[i]
+    console.log(`${i + 1}. ${option}`)
+  }
+  const choice = parseInt(prompt('Choose your number: '))
+  if (isNaN(choice) || choice < 1 || choice > question.options.length) {
+    console.log('Invalid. Incorrect choice')
+    return false
+  }
+  const choiceValue = question.options[choice - 1]
+  return choiceValue === question.answer
+}
+
+const numQuestions = prompt('Enter the number of questions:')
 const questions = loadQuestions()
 const randomQuestions = getRandomQuestions(questions, 4)
+const correct = askQuestion(randomQuestions[0])
+console.log(correct)
