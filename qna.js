@@ -12,5 +12,16 @@ function loadQuestions() {
   }
 }
 
+function getRandomQuestions(questions, numQuestions) {
+  if (numQuestions > questions.length) {
+    numQuestions = questions.length
+  }
+
+  const shuffled = questions.sort(() => {
+    return 0.5 - Math.random()
+  })
+  return shuffled.slice(0, numQuestions)
+}
+
 const questions = loadQuestions()
-console.log(questions)
+const randomQuestions = getRandomQuestions(questions, 4)
