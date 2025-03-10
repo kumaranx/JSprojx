@@ -1,5 +1,6 @@
 const prompt = require('prompt-sync')()
 const fs = require('fs')
+const { start } = require('repl')
 
 function loadQuestions() {
   try {
@@ -40,6 +41,18 @@ function askQuestion(question) {
 
 const numQuestions = prompt('Enter the number of questions:')
 const questions = loadQuestions()
-const randomQuestions = getRandomQuestions(questions, 4)
-const correct = askQuestion(randomQuestions[0])
-console.log(correct)
+const randomQuestions = getRandomQuestions(questions, numQuestions)
+
+let correct = 0;
+const startTime = Date.now()
+
+for (let question of randomQuestions) {
+  const isCorrect = askQuestion(question)
+  console.log()
+  if (isCorrect) correct++
+}
+
+const totalTime = Date.now() - startTime
+console.log('Correct:', correct)
+console.log('Time:', Math.round(totalTime / 1000) + "s")
+console.log('Score:', Math.round((correct / numQuestions) * 100) + '%')
